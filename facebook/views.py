@@ -76,12 +76,10 @@ def pages(request):
 def new_feed(request):
     if request.method == 'POST':
         if request.POST['author'] != '' and request.POST['title'] != '' and request.POST['content'] != '' and request.POST['password'] != '':
-            text = request.POST['content']
-            text = text + ' - 추신: 감사합니다.'
             new_article = Article.objects.create(
                 author=request.POST['author'],
                 title=request.POST['title'],
-                text=text,
+                text=request.POST['content'],
                 password=request.POST['password']
             )
 
