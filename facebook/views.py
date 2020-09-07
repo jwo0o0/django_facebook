@@ -61,9 +61,9 @@ def detail_feed(request, pk):
     if request.method == 'POST':
         Comment.objects.create(
             article=article,
-            author=request.POST.get['nickname'],
-            text=request.POST.get['reply'],
-            password=request.POST.get['password']
+            author=request.POST['nickname'],
+            text=request.POST['reply'],
+            password=request.POST['password']
         )
         return redirect(f'/feed/{article.pk}')
 
@@ -139,3 +139,17 @@ def remove_page(request, pk):
         page.delete()
         return redirect('/pages/')
     return render(request, 'remove_page.html', {'page':page})
+
+def remove_comment(request, pk):
+    comment = Comment.objects.get(pk=pk)
+    #article = Article.objects.get(article_id=article_id)
+    if request.method == 'POST':
+        if request.POST['password'] == comment.password:
+            comment.delete()
+            return redirect('/')
+        else:
+            return redirect('/password_error/')
+    return render(request, 'remove_comment.html', {'comment':comment})
+
+def error_comment(request):
+    return render(request, 'error_comment.html')

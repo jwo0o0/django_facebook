@@ -192,7 +192,7 @@
 <div class="comment_list">
     {% for comment in feed.comments.all %}
     <div class="comment"><span class="name">{{ comment.author }}</span> {{ comment.text }}</div>
-    <div class=“comment__date">{{ comment.created_at }} <a href="코멘트삭제주소"><img src="/static/ic_delete.png" height="16px"></a></div>
+    <div class=“comment__date">{{ comment.created_at }} <a href="/feed/{{comment.pk}}/remove_comment/"><img src="/static/ic_delete.png" height="16px"></a></div>
     {% endfor %}
     <div class="form-wrapper">
         <span class="help">댓글</span>
@@ -200,7 +200,7 @@
         {% csrf_token %}
         <input type="text" name="nickname" placeholder="닉네임" /><br/>
         <input type="password" name="password" placeholder="패스워드" /><br/>
-        <textarea name="reply" placeholder="코멘트 내용"></textarea>
+        <textarea name="reply" placeholder="댓글 내용"></textarea>
         <button type="submit">댓글작성</button>
     </form>
     </div>
